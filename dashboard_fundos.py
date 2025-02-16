@@ -22,15 +22,18 @@ st.set_page_config(
 #%% Importando a base de fundos
 @st.cache_data
 def carregar_base():
-    url = 'https://drive.google.com/file/d/1rHJTxgph7TR5jKBYkOSu6EM_7zGFIuSN/view?usp=sharing'
-    output = 'base_fundos.csv'
-    gdown.download(url, output, quiet=False)
-    
-    df = pd.read_csv("base_fundos.csv", sep=",")
-    
-    df.set_index("DT_COMPTC", inplace=True)
-    
-    return df
+    uploaded_file = st.file_uploader("Faça o upload do arquivo CSV", type="csv")
+
+    if uploaded_file is not None:
+        df = pd.read_csv(uploaded_file, sep=",")
+        
+        # Verifica se a coluna "DT_COMPTC" existe antes de definir como índice
+        if "DT_COMPTC" in df.columns:
+            df.set_index("DT_COMPTC", inplace=True)
+        
+        return df
+
+    return None
 
 df_fundos_adj = carregar_base()
 
