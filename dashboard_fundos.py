@@ -20,29 +20,6 @@ st.set_page_config(
 )
 
 #%% Importando a base de fundos
-@st.cache_data
-uploaded_file = st.file_uploader("Faça o upload do arquivo CSV", type="csv")
-
-if uploaded_file is not None:
-    try:
-        # Lendo o arquivo CSV
-        df = pd.read_csv(uploaded_file, sep=",")
-        
-        # Verifica se a coluna "DT_COMPTC" existe antes de definir como índice
-        if "DT_COMPTC" in df.columns:
-            df.set_index("DT_COMPTC", inplace=True)
-
-        # Exibir as primeiras linhas do dataframe
-        st.write("Visualizando as primeiras linhas do DataFrame:")
-        st.write(df.head())
-
-    except Exception as e:
-        st.error(f"Erro ao carregar o arquivo: {e}")
-
-else:
-    st.warning("Por favor, faça o upload de um arquivo CSV.")
-
-df_fundos_adj = carregar_base()
 
 #%% Definindo as funções
 
@@ -101,6 +78,31 @@ def fundos_correlacao(rd):
 #%% Dashboard
 
 st.title("📊 Dashboard de Fundos de Investimento")
+
+@st.cache_data
+uploaded_file = st.file_uploader("Faça o upload do arquivo CSV", type="csv")
+
+if uploaded_file is not None:
+    try:
+        # Lendo o arquivo CSV
+        df = pd.read_csv(uploaded_file, sep=",")
+        
+        # Verifica se a coluna "DT_COMPTC" existe antes de definir como índice
+        if "DT_COMPTC" in df.columns:
+            df.set_index("DT_COMPTC", inplace=True)
+
+        # Exibir as primeiras linhas do dataframe
+        st.write("Visualizando as primeiras linhas do DataFrame:")
+        st.write(df.head())
+
+    except Exception as e:
+        st.error(f"Erro ao carregar o arquivo: {e}")
+
+else:
+    st.warning("Por favor, faça o upload de um arquivo CSV.")
+
+df_fundos_adj = carregar_base()
+
 
 st.subheader("Insira o CNPJ e Apelido do Fundo")
 
