@@ -22,7 +22,7 @@ st.set_page_config(
 #%% Importando a base de fundos
 @st.cache_data
 def carregar_base():
-    url = 'https://drive.google.com/file/d/1tHCk4Lh4Tovi5ugKMM4jN1pvaEMJxOdu/view?usp=sharing'
+    url = 'https://drive.google.com/file/d/1rHJTxgph7TR5jKBYkOSu6EM_7zGFIuSN/view?usp=sharing'
     output = 'base_fundos.csv'
     gdown.download(url, output, quiet=False)
     
