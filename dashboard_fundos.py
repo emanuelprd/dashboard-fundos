@@ -27,9 +27,9 @@ def carregar_base():
     gdown.download(url, output, quiet=False)
     
     chunks = []
-    for chunk in pd.read_csv("base_fundos.csv", chunksize=1000):
+    for chunk in pd.read_csv("base_fundos.csv", sep=',', chunksize=1000):
         chunks.append(chunk)
-        
+    
     df = pd.concat(chunks, ignore_index=True)    
     df.set_index("DT_COMPTC", inplace=True)
     
