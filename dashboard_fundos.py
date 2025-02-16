@@ -26,7 +26,7 @@ def carregar_base():
     output = 'base_fundos.csv'
     gdown.download(url, output, quiet=False)
     
-    df = pd.read_csv('base_fundos.csv', chunksize=100000).set_index('DT_COMPTC')
+    df = pd.read_csv('base_fundos.csv').set_index('DT_COMPTC')
     df.index = pd.to_datetime(df.index)
     return df
 
