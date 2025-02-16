@@ -10,6 +10,7 @@ import numpy as np
 import plotly.graph_objects as go
 import scipy.stats as stats
 from plotly.subplots import make_subplots
+import gdown
 
 #%% Streamlit Configuração
 st.set_page_config(
@@ -21,7 +22,11 @@ st.set_page_config(
 #%% Importando a base de fundos
 @st.cache_data
 def carregar_base():
-    df = pd.read_csv('base_fundos.csv').set_index('DT_COMPTC')
+    url = 'https://drive.google.com/file/d/1tHCk4Lh4Tovi5ugKMM4jN1pvaEMJxOdu/view?usp=sharing'
+    output = 'base_fundos.csv'
+    gdown.download(url, output, quiet=False)
+    
+    df = pd.read_csv('base_fundos.csv', chunksize=100000)).set_index('DT_COMPTC')
     df.index = pd.to_datetime(df.index)
     return df
 
